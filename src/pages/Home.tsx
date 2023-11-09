@@ -109,7 +109,7 @@ export function Home() {
             newses.map((news, index) => (
               <Col key={index}>
                 <Card title={news.언론사}
-                  onClick={() => { window.open(news.주소) }}
+                  onClick={() => { window.open(news.주소, '_self') }}
                   style={{ minWidth: "140px", fontWeight: 500, maxWidth: "200px" }}>
                   {news.제목}
                 </Card>

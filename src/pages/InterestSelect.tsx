@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { Footer } from "../components/layouts/Footer";
 import { useState } from "react";
 import { LeftOutlined } from "@ant-design/icons";
+import axios from 'axios';
+
 
 const interests = [
   "📚책/글",
@@ -37,7 +39,7 @@ const jobCategories = [
   "교육 및 교육 서비스",
   "보건 및 사회복지",
   "문화, 예술, 스포츠",
-  "IT관련",
+  "IT",
   "기타 서비스"
 ];
 
@@ -49,6 +51,7 @@ const InterestWrapper = styled.div`
 const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
+  padding : 24px;
 `;
 
 const InterestButton = styled(Button)`
@@ -61,6 +64,7 @@ const HorizontalFlex = styled.div`
 `;
 export function InterestSelect() {
   const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
+  const [selectedJobs, setSelectedJobs] = useState<string[]>([]);
   const navigate = useNavigate();
 
   const handleInterestSelect = (interest: string) => {
@@ -72,10 +76,33 @@ export function InterestSelect() {
     }
   };
 
+
+  const handleDomainSelect = (domain: string) => {
+    // 선택된 관심사를 업데이트
+    if (selectedJobs.includes(domain)) {
+      setSelectedJobs(selectedJobs.filter(item => item !== domain));
+    } else {
+      setSelectedJobs([...selectedJobs, domain]);
+    }
+  };
+
   const handleSave = () => {
     // 선택된 관심사를 저장하는 로직
-    console.log("Selected Interests: ", selectedInterests);
-    // 여기서 선택된 관심사를 저장하거나 다음 단계로 넘어가는 로직을 구현할 수 있습니다.
+    console.log("Selected Interests: ", selectedInterests, selectedJobs);
+
+    // 서버에 데이터를 전송
+    const apiUrl = "http://localhost:8000/user/add_info/";
+    axios.post(apiUrl, {
+      email: "haesummy@gmail.com", // 사용자 이메일 데이터 추가
+      interests: selectedInterests,
+      domain: selectedJobs,
+    })
+      .then((response: any) => {
+        console.log("Response from server:", response.data);
+        // 성공적으로 전송되었을 때의 로직 구현
+        navigate("/testInit");
+      })
+
   };
 
   return (
@@ -103,8 +130,8 @@ export function InterestSelect() {
         {jobCategories.map((job, index) => (
           <InterestButton
             key={index}
-            type={selectedInterests.includes(job) ? "primary" : "default"}
-            onClick={() => handleInterestSelect(job)}
+            type={selectedJobs.includes(job) ? "primary" : "default"}
+            onClick={() => handleDomainSelect(job)}
             style={{ minWidth: `${job.length * 8}px` }}
           >
             {job}

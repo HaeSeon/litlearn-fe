@@ -10,23 +10,20 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-  <React.StrictMode>
-    <ConfigProvider
-      theme={{
-        token: {
-          colorPrimary: '#000000',
-          fontFamily: 'nanum',
-          fontSize: 16,
+  <ConfigProvider
+    theme={{
+      token: {
+        colorPrimary: '#000000',
+        fontFamily: 'nanum',
+        fontSize: 16,
 
-        },
-      }}
-    >
-
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </ConfigProvider>
-  </React.StrictMode>
+      },
+    }}
+  >
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </ConfigProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

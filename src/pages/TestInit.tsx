@@ -9,6 +9,7 @@ const Container = styled.div`
   align-items: center;
   height: 100vh;
   justify-content: center;
+  padding : 24px;
 `;
 
 export function TestInit() {

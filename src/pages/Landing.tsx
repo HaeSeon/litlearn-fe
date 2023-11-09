@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import { Footer } from "../components/layouts/Footer";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   display: flex;
@@ -8,9 +10,18 @@ const Container = styled.div`
   align-items : center;
   height : 100dvh;
   justify-content : center;
+  padding : 24px;
 `
 export function Landing() {
+  const navigate = useNavigate();
 
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      navigate('/testInit');
+    }, 1000);
+
+    return () => clearTimeout(timeout);
+  }, [navigate]);
   return (
     <div>
       <Container>

@@ -10,8 +10,11 @@ const Container = styled.div`
   max-width: 480px;
   align-items : start;
   height : 100dvh;
-  gap : 16px
+  gap : 16px;
+  padding : 24px;
 `
+
+
 const questions = [
   {
     "index": 1,
@@ -64,8 +67,9 @@ interface Question {
 }
 export function TestStart() {
   const [questionIndex, setQuestionIndex] = useState(0);
-  const [time, setTime] = useState(10);
+  const [time, setTime] = useState(30);
   const [userAnswers, setUserAnswers] = useState<(string | null)[]>([]);
+  const [isCorrect, setIsCorrect] = useState()
   const navigate = useNavigate();
   let timer: NodeJS.Timeout;
   useEffect(() => {
@@ -75,7 +79,7 @@ export function TestStart() {
       } else {
         if (questionIndex < questions.length - 1) {
           setQuestionIndex(questionIndex + 1);
-          setTime(10);
+          setTime(30);
           setUserAnswers((prevAnswers) => [...prevAnswers, null]);
         } else {
           clearInterval(timer);
@@ -94,18 +98,31 @@ export function TestStart() {
     const updatedAnswers = [...userAnswers]; // 이전 답안의 복사본 생성
 
     // 현재 문제에 대한 사용자 답안 업데이트
-    updatedAnswers[questionIndex] = selectedAnswer;
+    updatedAnswers[questionIndex] = selectedAnswer.charAt(0);
 
     // 업데이트된 답안으로 state 업데이트
     setUserAnswers(updatedAnswers);
     console.log(`Question ${questionIndex + 1} Answer:`, selectedAnswer);
 
+    // 답을 체크하여 맞았는지 확인 (true 또는 false)
+    const isCorrect = selectedAnswer.charAt(0) === questions[questionIndex].answer;
+
+    // 피드백을 표시하는 로그
+    if (isCorrect) {
+      alert("정답입니다.")
+    } else {
+      alert("틀렸습니다!")
+    }
+
     // 다음 질문이 남아있는 경우
     if (questionIndex < questions.length - 1) {
       setQuestionIndex(questionIndex + 1); // 다음 문제로 이동
-      setTime(10); // 시간 초기화
+      setTime(30); // 시간 초기화
     } else { // 마지막 질문인 경우
       clearInterval(timer); // 타이머 정지
+
+
+
       console.log('Quiz completed');
       console.log('User Answers:', updatedAnswers); // 업데이트된 답안 로깅
       navigate('/testResult', { state: { userAnswers: updatedAnswers, questions } }); // 결과 페이지로 이동
@@ -137,6 +154,7 @@ export function TestStart() {
             </Button>
           ))}
         </div>
+
       </Container>
       {/* <Footer /> */}
     </div>

@@ -17,7 +17,7 @@ export function Landing() {
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      navigate('/testInit');
+      navigate('/interest');
     }, 1000);
 
     return () => clearTimeout(timeout);

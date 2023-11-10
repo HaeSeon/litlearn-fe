@@ -66,7 +66,9 @@ export function Home() {
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-          }}>카카오톡으로 받아보기
+          }}
+            onClick={() => { window.open("http://pf.kakao.com/_iExmxoxj", '_self') }}
+          >카카오톡으로 받아보기
             <img src="/img/kakao.png" alt="kakao" width={24} />
           </Button>
         </div>

@@ -2,6 +2,7 @@ import { Button, Card, Col, Row } from "antd";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { BottomNavigation } from "../components/layouts/BottomNav";
 
 const Container = styled.div`
   display: flex;
@@ -118,6 +119,7 @@ export function Home() {
               </Col>
             ))}
         </div>
+        <BottomNavigation />
       </Container >
     </div >
   )

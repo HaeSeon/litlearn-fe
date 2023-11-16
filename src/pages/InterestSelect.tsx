@@ -100,7 +100,7 @@ export function InterestSelect() {
       .then((response: any) => {
         console.log("Response from server:", response.data);
         // 성공적으로 전송되었을 때의 로직 구현
-        navigate("/testInit");
+        navigate("/home");
       })
 
   };
